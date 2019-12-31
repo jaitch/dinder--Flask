@@ -20,7 +20,7 @@ class RawDataModel(db.Model):
     """
     Class constructor
     """
-    self.allData = data.get('allData')
+    self.allData = data
     self.created_at = datetime.datetime.utcnow()
     self.modified_at = datetime.datetime.utcnow()
 
