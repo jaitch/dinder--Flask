@@ -1,12 +1,9 @@
 from textblob import TextBlob
-# from textblob.np_extractors import ConllExtractor
-# extractor = ConllExtractor()
-# tried out TextBlob's other noun phrases chunker implementation, but not as good for this purpose [after quoted blob ->, np_extractor=extractor]
-
+# I tried out TextBlob's other noun phrases chunker implementation, but it was not as good for this purpose
 
 # source: https://www.analyticsvidhya.com/blog/2017/01/ultimate-guide-to-understand-implement-natural-language-processing-codes-in-python/
 
-noise_list = ["cup", "cups", "whole", "teaspoon", "teaspoons", "tablespoon", "tablespoons", "pound", "pounds", "or", "and", "bag", "bags", ", to taste", "for", "several", "dash", "dashes", "thinly", "sliced", "slices", "fresh", "grated", "(additional)", "ounce", "ounces", "oz", "grams", "weight", "quart", "quarts", "etc.", ", diced", "chopped", "more if needed", "halved", "dry", "leaves", "package", "small", "large", "stick", "ground", "finely", "minced", "sprigs", "loaf", "firmly packed", "freshly grated", "cold", "warm", "very", "garnish", "salt", "size", "taste", "frozen", "diced", "peeled", "rinsed", "drained", "pitted", "mixed", "cubed", "blanched", "pieces", "the", "your", "boiled", "hard-boiled", "warmed", "torn", "needed", "splashing", "liquid", "used"]
+noise_list = ["additional", "and", "bag", "bags", "blanched", "boiled", "chopped", "cold", "cubed", "cup", "cups", "dash", "dashes", "diced", "diced", "drained", "dry", "etc.", "finely", "firmly packed", "for", "fresh", "freshly grated", "frozen", "garnish", "grams", "grated", "ground", "halved", "hard-boiled", "large", "leaves", "liquid", "loaf", "minced", "mixed", "more if needed", "needed", "or", "ounce", "ounces", "oz", "package", "peeled", "pieces", "pitted", "pound", "pounds", "quart", "quarts", "rinsed", "salt", "several", "size", "sliced", "slices", "small", "splashing", "sprigs", "stick", "tablespoon", "tablespoons", "taste", "teaspoon", "teaspoons", "the", "thinly", "to taste", "torn", "used", "very", "warm", "warmed", "weight", "whole", "your"]
 
 def _remove_noise(input_text):
     words = input_text.split()
