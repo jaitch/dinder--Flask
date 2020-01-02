@@ -6,7 +6,7 @@ from textblob import TextBlob
 
 # source: https://www.analyticsvidhya.com/blog/2017/01/ultimate-guide-to-understand-implement-natural-language-processing-codes-in-python/
 
-noise_list = ["cup", "cups", "whole", "teaspoon", "teaspoons", "tablespoon", "tablespoons", "pound", "pounds", "or", "and", "bag", "bags", ", to taste", "for", "several", "dash", "dashes", "thinly", "sliced", "slices", "fresh", "grated", "(additional)", "ounce", "ounces", "grams", "weight", "quart", "quarts", "etc.", ", diced", "chopped", "more if needed", "halved", "dry", "leaves", "package", "small", "large", "stick", "ground", "finely", "minced", "sprigs", "loaf", "firmly packed", "freshly grated", "cold", "warm", "very", "garnish", "salt"]
+noise_list = ["cup", "cups", "whole", "teaspoon", "teaspoons", "tablespoon", "tablespoons", "pound", "pounds", "or", "and", "bag", "bags", ", to taste", "for", "several", "dash", "dashes", "thinly", "sliced", "slices", "fresh", "grated", "(additional)", "ounce", "ounces", "oz", "grams", "weight", "quart", "quarts", "etc.", ", diced", "chopped", "more if needed", "halved", "dry", "leaves", "package", "small", "large", "stick", "ground", "finely", "minced", "sprigs", "loaf", "firmly packed", "freshly grated", "cold", "warm", "very", "garnish", "salt", "size", "taste", "frozen", "diced", "peeled", "rinsed", "drained", "pitted", "mixed", "cubed", "blanched", "pieces", "the", "your", "boiled", "hard-boiled", "warmed", "torn", "needed", "splashing", "liquid", "used"]
 
 def _remove_noise(input_text):
     words = input_text.split()
@@ -14,11 +14,11 @@ def _remove_noise(input_text):
     noise_free_text = " ".join(noise_free_words)
     return noise_free_text
 
-blob = TextBlob("12 ounces, weight Semi-Sweet Chocolate Chips\n4 whole Eggs\n1 Tablespoon Grand Marnier, More To Taste\n1 dash Salt\n1 cup Very Hot Strong Coffee\n Fresh Whipped Cream, For Serving\n Thinly Sliced Orange Peel, For Garnish")
+blob = TextBlob("2 Tablespoons Olive Oil\n2 Tablespoons Butter\n1 pound Scallops\n1 pound Shrimp\n5 cloves Garlic\n3/4 cups Dry White Wine\n28 ounces, weight Whole Or Diced Tomatoes\n Salt And Pepper, to taste\n1/4 teaspoon Crushed Red Pepper\n1/4 cup Heavy Cream, Warmed\n12 whole Basil Leaves Torn\n Chicken Broth, If Needed For Splashing In A Little Liquid\n12 ounces, weight Pasta (I Used Fusilli Bucati, But Any Kind Will Do!)")
 
 wordList = []
 for np in blob.noun_phrases:
-  if np != '':
-    wordList.append(_remove_noise(np))
-
+  noise_removed_np = _remove_noise(np)
+  if noise_removed_np != '':
+    wordList.append(noise_removed_np)
 print(wordList)
