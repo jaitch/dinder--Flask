@@ -3,9 +3,9 @@ from textblob import TextBlob
 
 # source: https://www.analyticsvidhya.com/blog/2017/01/ultimate-guide-to-understand-implement-natural-language-processing-codes-in-python/
 
-noise_list = ["additional", "and", "bag", "bags", "beaten", "blanched", "boiled", "boneless", "bottle", "bottled", "breast", "breasts", "cans", "chopped", "cold", "cooked", "cooking", "chunks", "crushed", "cubed", "cup", "cups", "dash", "dashes", "deveined", "diced", "diced", "drained", "dry", "etc", "etc.", "extra", "finely", "firmly packed", "for", "fresh", "freshly", "freshly grated", "frozen", "garnish", "grams", "grated", "ground", "halved", "halves", "hard-boiled", "heaping", "hot", "juiced", "jumbo", "kosher", "large", "leaves", "liquid", "loaf", "medium", "medium-sized", "melted", "minced", "mixed", "more if needed", "needed", "oil", "or", "ounce", "ounces", "oz", "package", "pancake", "peel", "peeled", "pieces", "pitted", "pound", "pounds", "puree", "pureed", "quart", "quartered", "quarters", "quarts", "regular-sized", "rinsed", "salt", "sauce", "sauces", "several", "size", "skinless", "sliced", "slices", "slightly", "small", "softened", "splashing", "sprigs", "stick", "tablespoon", "tablespoons", "taste", "teaspoon", "teaspoons", "the", "thigh", "thighs", "thin", "thinly", "to taste", "torn", "uncooked", "used", "very", "warm", "warmed", "water", "weight", "whole", "your", "zest"]
+noise_list = ["additional", "and", "bag", "bags", "beaten", "blanched", "boiled", "boneless", "bottle", "bottled", "breast", "breasts", "cans", "chopped", "cold", "cooked", "cooking", "chunks", "crushed", "cubed", "cup", "cups", "cut", "dash", "dashes", "deveined", "diced", "diced", "drained", "dry", "etc", "etc.", "extra", "finely", "firmly packed", "for", "fresh", "freshly", "freshly grated", "frozen", "garnish", "grams", "grated", "ground", "halved", "halves", "hard-boiled", "heaping", "hot", "juiced", "jumbo", "kosher", "large", "leaves", "liquid", "loaf", "medium", "medium-sized", "melted", "minced", "mixed", "more if needed", "needed", "oil", "or", "ounce", "ounces", "oz", "package", "pancake", "peel", "peeled", "pieces", "pitted", "pound", "pounds", "puree", "pureed", "quart", "quartered", "quarters", "quarts", "regular-sized", "rinsed", "salt", "sauce", "sauces", "seasoning", "several", "size", "skinless", "sliced", "slices", "slightly", "small", "softened", "splashing", "spices", "sprigs", "stick", "strips", "substitute", "tablespoon", "tablespoons", "taste", "teaspoon", "teaspoons", "the", "thigh", "thighs", "thin", "thinly", "to taste", "torn", "uncooked", "used", "vegetable", "very", "warm", "warmed", "water", "weight", "whole", "your", "zest"]
 
-# olive appearing for olive oil, adjectives that are also nouns
+# olive appearing for olive oil, adjectives that are also nouns, cloves the spice vs garlic measurement
 
 def _remove_noise(input_text):
     words = input_text.split()
@@ -13,7 +13,7 @@ def _remove_noise(input_text):
     noise_free_text = " ".join(noise_free_words)
     return noise_free_text
 
-blob = TextBlob("1 pound Pasta\n2 Tablespoons Olive Oil\n2 Tablespoons Butter\n1 whole Medium Onion, Chopped Finely\n2 cloves (to 3 Cloves) Garlic, Chopped\n3/4 cups (to 1 Cup) Vodka\n1 can (About 14 Oz.) Tomato Puree\n1 cup Heavy Cream\n1 pinch Red Pepper Flakes\n1/4 teaspoon (to 1/2 Teaspoon) Salt\n Freshly Ground Black Pepper, To Taste\n1 cup Grated Parmesan Cheese")
+blob = TextBlob("3 cans (14.5 Oz.) Garbanzo Beans, Rinsed And Drained\n1/3 cup Plus 1 Tablespoon Tahini\n3 cloves Garlic, Chopped, Or More To Taste\n1/2 whole Lemon, Juiced\n1/2 teaspoon Ground Cumin, Or More To Taste\n Salt To Taste\n Fresh Basil Or Italian Parsley\n3 Tablespoons To 5 Tablespoons Cold Water\n1 Tablespoon Olive Oil")
 
 wordList = []
 for np in blob.noun_phrases:
