@@ -8,7 +8,7 @@ class RawDataModel(db.Model):
   Raw Data Model
   """
 
-  __tablename__ = 'rawData'
+  __tablename__ = 'raw_data'
 
   id = db.Column(db.Integer, primary_key=True, nullable=False)
   allData = db.Column(JSONB, nullable=False)
