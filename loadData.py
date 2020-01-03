@@ -1,5 +1,4 @@
 import json
-from src.models import db
 from src.models.RawDataModel import RawDataModel
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
