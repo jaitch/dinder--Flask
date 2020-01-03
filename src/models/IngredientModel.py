@@ -2,7 +2,7 @@ from marshmallow import fields, Schema
 import datetime
 from . import db
 
-class IngredientModel(db.Model):
+class Ingredient(db.Model):
   """
   Ingredient Model
   """

@@ -20,7 +20,8 @@ class RawDataModel(db.Model):
   created_at = db.Column(db.DateTime)
   modified_at = db.Column(db.DateTime)
   ingredients = db.relationship("Ingredient",
-    secondary=recipe_ingredients)
+    secondary=recipe_ingredients,
+    backref="recipes")
 
   # class constructor
   def __init__(self, data):
@@ -44,7 +45,7 @@ class RawDataModel(db.Model):
 #   modified_at = fields.DateTime(dump_only=True)
 
 # r = RawDataModel()
-# i = IngredientModel()
+# i = Ingredient()
 # r.ingredients.append(i)
 # db.session.add(r)
 # db.session.commit()
