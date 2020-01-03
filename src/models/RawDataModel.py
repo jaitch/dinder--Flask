@@ -3,6 +3,11 @@ import datetime
 from . import db
 from sqlalchemy.dialects.postgresql import JSONB
 
+recipe_ingredients = db.Table('recipe_ingredients',
+  db.Column('ingredient_id', db.Integer, db.ForeignKey('ingredients.id')),
+  db.Column('recipe_id', db.Integer, db.ForeignKey('raw_data.id'))
+)
+
 class RawDataModel(db.Model):
   """
   Raw Data Model
@@ -14,6 +19,8 @@ class RawDataModel(db.Model):
   allData = db.Column(JSONB, nullable=False)
   created_at = db.Column(db.DateTime)
   modified_at = db.Column(db.DateTime)
+  ingredients = db.relationship("Ingredient",
+    secondary=recipe_ingredients)
 
   # class constructor
   def __init__(self, data):
@@ -35,3 +42,9 @@ class RawDataModel(db.Model):
 #   allData = fields.JSONB(required=True)
 #   created_at = fields.DateTime(dump_only=True)
 #   modified_at = fields.DateTime(dump_only=True)
+
+# r = RawDataModel()
+# i = IngredientModel()
+# r.ingredients.append(i)
+# db.session.add(r)
+# db.session.commit()

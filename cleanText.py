@@ -26,7 +26,7 @@ def _clean_text(ingredients_list):
       wordList.append(noise_removed_np)
   print(list(set(wordList)))
 
-_clean_text("3 cans (14.5 Oz.) Garbanzo Beans, Rinsed And Drained\n1/3 cup Plus 1 Tablespoon Tahini\n3 cloves Garlic, Chopped, Or More To Taste\n1/2 whole Lemon, Juiced\n1/2 teaspoon Ground Cumin, Or More To Taste\n Salt To Taste\n Fresh Basil Or Italian Parsley\n3 Tablespoons To 5 Tablespoons Cold Water\n1 Tablespoon Olive Oil")
+# _clean_text("3 cans (14.5 Oz.) Garbanzo Beans, Rinsed And Drained\n1/3 cup Plus 1 Tablespoon Tahini\n3 cloves Garlic, Chopped, Or More To Taste\n1/2 whole Lemon, Juiced\n1/2 teaspoon Ground Cumin, Or More To Taste\n Salt To Taste\n Fresh Basil Or Italian Parsley\n3 Tablespoons To 5 Tablespoons Cold Water\n1 Tablespoon Olive Oil")
 
 # for recipe in RawDataModel.query.all():
 #   recipe.ingredients
