@@ -3,6 +3,7 @@ from src.models.IngredientModel import Ingredient
 from textblob import TextBlob
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+import re
 
 engine = create_engine('postgresql://janicehuang@localhost/dinder')
 Session = sessionmaker(bind=engine)
@@ -15,9 +16,15 @@ session = Session()
 
   # olive appearing for olive oil, adjectives that are also nouns, cloves the spice vs garlic measurement
 
+def prerinse(input_text):
+  no_newlines = re.sub('\\n', '; ', input_text)
+  prerinsed_text = re.sub('[%/\d\*\+\[\]-_`]', ' ', no_newlines)
+  return prerinsed_text
+
 def remove_noise(input_text):
 
-  noise_list = ["additional", "and", "bag", "bags", "beaten", "blanched", "boiled", "boneless", "bottle", "bottled", "breast", "breasts", "cans", "chopped", "cold", "cooked", "cooking", "chunks", "crushed", "cubed", "cup", "cups", "cut", "dash", "dashes", "deveined", "diced", "diced", "drained", "dry", "etc", "etc.", "extra", "finely", "firmly packed", "for", "fresh", "freshly", "freshly grated", "frozen", "garnish", "grams", "grated", "ground", "halved", "halves", "hard-boiled", "heaping", "hot", "juiced", "jumbo", "kosher", "large", "leaves", "liquid", "loaf", "medium", "medium-sized", "melted", "minced", "mixed", "more if needed", "needed", "oil", "or", "ounce", "ounces", "oz", "package", "pancake", "peel", "peeled", "pieces", "pitted", "pound", "pounds", "puree", "pureed", "quart", "quartered", "quarters", "quarts", "regular-sized", "rinsed", "salt", "sauce", "sauces", "seasoning", "several", "size", "skinless", "sliced", "slices", "slightly", "small", "softened", "splashing", "spices", "sprigs", "stick", "strips", "substitute", "tablespoon", "tablespoons", "taste", "teaspoon", "teaspoons", "the", "thigh", "thighs", "thin", "thinly", "to taste", "torn", "uncooked", "used", "vegetable", "very", "warm", "warmed", "water", "weight", "whole", "your", "zest"]
+  noise_list = ["®", "'ll", "'s", "...", "-diameter", "-inch", "-inch-diameter", "-inch-thick", "-ounce", "-percent", "-pound", "-quart", "-tablespoon", "-teaspoon", "-thick", "a", "about", "above", "accent", "accompaniment", "accompaniments", "according", "active", "actual", "adapted", "added","adjust", "adjustable", "adult", "an", "additional", "aged", "ahi", "aka", "al dente", "alaskan", "albacore", "all-natural", "almost-ripe", "alternative", "aluminum", "american", "amount", "and", "and/or", "any", "approx", "approximately", "aromatic", "artisan", "artisan-style", "asian", "assembly", "assorted", "atlantic", "australian", "authentic", "available", "average", "baby", "bag", "bags", "baked", "baker", "baking", "ball", "balls", "base", "basic", "basket", "baste", "basting", "batch", "baton", "batons", "batter", "be", "beaten", "beautiful", "belgian", "below", "best-quality", "big", "bit", "bite", "bite-size", "bite-sized", "bits", "black", "blanched", "blend", "blender", "block", "board" "boiled", "boiling", "bone", "bones", "bone-in", "boneless", "bottle", "bottles", "bottled", "bottom", "bought", "bowl", "bowls", "box", "boxes", "branch", "branches", "brand", "bread-and-butter", "breakfast", "breakstone", "breast", "breasts", "brewed", "brick", "bright", "british", "broken", "broken-up", "brown", "browned", "brush", "brushing", "bulb", "bulbs", "bulk", "bunch", "bunches", "bundle", "burrito", "button", "buy", "c", "c.", "california", "calorie", "calories", "campbell's", "can", "canadian", "cane", "canned", "canning", "canola", "cans", "cap", "capacity", "carton", "cartons", "casings", "casserole", "caster", "caught", "cedar", "celtic", "center", "center-cut", "certified", "cheap", "chiffonade", "chilled", "chopped", "chunk", "chunks", "clove", "coins", "cold", "container", "containers", "cooked", "cooking", "country", "chinese", "chips", "choice", "choose", "christmas", "chunk", "chunks", "chunky", "circles", "circular", "classic", "classico", "clean", "cleaned", "clear", "cm", "crispy", "crushed", "crustless", "crusty", "cube", "cubed", "cubes", "cup", "cups", "cut", "cut-up", "dash", "dashes", "deveined", "diagonal", "diameter", "dice", "diced", "diced", "drained", "drippings", "drop", "drops", "dry", "envelope", "equipment", "etc", "etc.", "extra", "extra-firm", "fat-free", "filet", "fillet", "filling", "finely", "fingers", "firmly-packed", "flat-leaf", "florets", "for", "free-range", "fresh", "freshly", "freshly grated", "frozen", "gallon", "garnish", "gem", "good-quality", "grams", "grated", "grocers", "ground", "half-moons", "half-rounds", "halved", "halves", "handful", "hard-boiled", "head", "heaping", "hot", "inch-thick", "inch-wide", "ingredients", "instant", "intervals", "jar", "juice", "juiced", "julienne", "jumbo", "kilogram", "kind", "knob", "kosher", "lardons", "large", "-lean", "lean", "leaves", "leftover", "leg", "length", "lengths", "lengthwise", "-less-sodium", "links", "liquid", "liter", "litre", "loaf", "log", "low-fat", "lowfat", "low-salt", "low-sodium", "matchsticks", "meal", "medallions", "medium", "medium-sized", "melted", "minced", "mix", "mixed", "more if needed", "needed", "nonfat", "non-fat", "non-dairy", "oil", "optional", "or", "organic", "ounce", "ounces", "oz", "package", "packages", "pan", "pans", "pancake", "peel", "peeled", "pie", "piece", "pieces", "pinch", "pinches", "pint", "pitted", "plate", "pod", "pods", "pound", "pounds", "powder", "puree", "pureed", "quantities", "quantity", "quart", "quartered", "quarters", "quarts", "rack", "racks", "reduced-fat", "regular-sized", "ribbon", "ribbons", "rings", "rinsed", "ripe", "round", "rounds", "rustic", "salt", "sauce", "sauces", "scoop", "scoops", "seasoning", "seeds", "segment", "segments", "semi-circles", "serving", "servings", "several", "shanks", "shavings", "sheet", "sheets", "side", "sides", "size", "sized", "skewers", "skinless", "slice", "sliced", "slices", "slightly", "small", "soda", "softened", "splash", "splashing", "spices", "spoonful", "spoonfuls", "sprigs", "springform", "square", "squares", "stalk", "stalks", "stick", "sticks", "store", "store-bought", "strip", "strips", "substitute", "substituted", "sugar", "supermarkets", "tablespoon", "tablespoons", "taste", "teaspoon", "teaspoons", "the", "thick", "thigh", "thighs", "thick", "thick-cut", "thickness", "thin", "thinly", "tip", "to taste", "torn", "uncooked", "uniform", "used", "vegetable", "very", "violet", "warm", "warmed", "water", "wedges", "weight", "whole", "you", "you'll", "your", "you're", "zest"]
+  # combine/deal with chili, chilli, chile, chillies, chillis, chilies, chiles...same w chipotle ..... chocolate, cacao, cocoa
 
   words = input_text.split()
   noise_free_words = [word for word in words if word not in noise_list]
@@ -26,19 +33,22 @@ def remove_noise(input_text):
 
 def clean_text(ingredients_list):
   wordList = []
-  blob = TextBlob(ingredients_list)
+  prerinsed_ingredients_list = prerinse(ingredients_list)
+  blob = TextBlob(prerinsed_ingredients_list)
   for np in blob.noun_phrases:
     noise_removed_np = remove_noise(np)
     if noise_removed_np != '':
       wordList.append(noise_removed_np)
-  return list(set(wordList))
+  # return list(set(wordList))
+  print(set(wordList))
 
+# for recipe in session.query(RawDataModel).all():
+#   parsed_ingredients = clean_text(recipe.allData["ingredients"])
+#   for ingredient in parsed_ingredients:
+#     row = session.query(Ingredient).filter_by(name=ingredient).scalar()
+#     if row is None:
+#       row = Ingredient(ingredient)
+#     recipe.ingredients.append(row)
+#   session.commit()
 
-for recipe in session.query(RawDataModel).all():
-  parsed_ingredients = clean_text(recipe.allData["ingredients"])
-  for ingredient in parsed_ingredients:
-    row = session.query(Ingredient).filter_by(name=ingredient).scalar()
-    if row is None:
-      row = Ingredient(ingredient)
-    recipe.ingredients.append(row)
-  session.commit()
+clean_text("4 cups Unprepared Rice\n6 cups (to 8 Cups) Low Sodium Chicken Broth/stock\n4 whole (to 8) Tomatoes (up To You)\n2 whole (to 3) Onions (up To You)\n8 cloves (to 14 Cloves) Of Garlic (up To You)\n Butter\n Taco Seasoning (or Chili Powder, Paprika, And Cumin) To Taste\n1 can (to 2 Cans) Black Or Pinto Beans (up To You)\n3 pounds Lean Ground Beef\n2 jars (16 Ounce) Salsa Verde\n Flour Tortillas\n3 packages (16 Ounces) Mexican Cheese Blend\n1 jar (16 Ounce) Enchilada Sauce\n3 cans Corn, Drained\n Sour Cream, to taste\n Cilantro, to taste")
