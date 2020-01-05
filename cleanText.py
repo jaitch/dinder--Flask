@@ -46,18 +46,25 @@ def clean_text(ingredients_list):
   prerinsed_ingredients_list = prerinse(ingredients_list)
   blob = TextBlob(prerinsed_ingredients_list)
   for np in blob.noun_phrases:
+    print('np: ', np)
     noise_removed_np = remove_noise(np)
+    print('noise-removed-np: ', noise_removed_np)
     lemmatized_np = lemmatize_ingredient(noise_removed_np)
+    print('lemmatize-np: ', lemmatized_np)
     if lemmatized_np != '':
       wordList.append(lemmatized_np)
   return list(set(wordList))
 
-for recipe in session.query(RawDataModel).all():
-  parsed_ingredients = clean_text(recipe.allData["ingredients"])
+# for recipe in session.query(RawDataModel).all():
+#   parsed_ingredients = clean_text(recipe.allData["ingredients"])
+
   # for ingredient in parsed_ingredients:
   #   row = session.query(Ingredient).filter_by(name=ingredient).scalar()
   #   if row is None:
   #     row = Ingredient(ingredient)
   #   recipe.ingredients.append(row)
   # session.commit()
-  print(parsed_ingredients)
+
+  # print(parsed_ingredients)
+
+print(clean_text("12 slices Sandwich Bread\n4 Tablespoons Mayonnaise\n1 Tablespoon Prepared Basil Pesto\n1 Tablespoon Prepared Sun-dried Tomato Pesto (or Just A Couple Of Pureed Sun-dried Tomatoes)\n8 slices Bacon, Cut In Half\n1/2 pound Shaved Ham\n1/2 pound Shaved Turkey\n4 whole Avocados, Peeled And Sliced\n4 slices Cheese (swiss, Mozzarella, Etc.)\n Romaine Or Green Leaf Lettuce"))
