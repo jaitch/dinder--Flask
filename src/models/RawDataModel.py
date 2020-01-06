@@ -32,6 +32,14 @@ class RawDataModel(db.Model):
     self.created_at = datetime.datetime.utcnow()
     self.modified_at = datetime.datetime.utcnow()
 
+  # @staticmethod
+  # def get_all_recipes():
+  #   return RawDataModel.query.all()
+
+  # @staticmethod
+  # def get_one_recipe(id):
+  #   return RawDataModel.query.get(id)
+
   def __repr(self):
     return '<id {}>'.format(self.id)
 

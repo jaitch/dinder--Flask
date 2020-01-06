@@ -1,4 +1,4 @@
-from app.api import bp
+from src.api import bp
 
 @bp.route('/recipes/<int:id>', methods=['GET'])
 
