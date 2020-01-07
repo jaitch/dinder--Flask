@@ -21,8 +21,7 @@ def create_app(env_name):
   @app.route('/ingredient/<id>', methods=['GET'])
   def get_ingredient_by_id(id):
     ingredient_schema = IngredientSchema(many=False)
-    ingredient=Ingredient.query.get(id)
-    return jsonify(ingredient_schema.dump(ingredient.name))
+    return jsonify(ingredient_schema.dump(Ingredient.query.get(id)))
 
   @app.route('/recipes', methods=['GET'])
   def get_all_recipes():
@@ -32,8 +31,8 @@ def create_app(env_name):
   @app.route('/recipe/<id>', methods=['GET'])
   def get_recipe_by_id(id):
     schema = RawDataSchema(many=False)
-    recipe = RawDataModel.query.get(id)
-    print(recipe.allData)
-    return jsonify(schema.dump(recipe.allData))
+    # recipe = RawDataModel.query.get(id)
+    # print(recipe.allData)
+    return jsonify(schema.dump(RawDataModel.query.get(id)))
 
   return app
