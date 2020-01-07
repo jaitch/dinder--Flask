@@ -18,10 +18,24 @@ def create_app(env_name):
     ingredients_schema = IngredientSchema(many=True)
     return jsonify(ingredients_schema.dump(Ingredient.query.limit(10).all()))
 
-  @app.route('/ingredient/<id>', methods=['GET'])
-  def get_ingredient_by_id(id):
-    ingredient_schema = IngredientSchema(many=False)
-    return jsonify(ingredient_schema.dump(Ingredient.query.get(id)))
+  @app.route('/ingredient/<sought_ingredient>', methods=['GET'])
+  def get_ingredient_by_name(sought_ingredient):
+    ingredient_schema = IngredientSchema(many=True)
+    found_ingredient = Ingredient.query.filter_by(name=sought_ingredient)
+    print(found_ingredient)
+    if found_ingredient is None:
+      response = {
+        'message': 'Sorry. Ingredient does not exist.'
+      }
+      return jsonify(response), 404
+    result = ingredient_schema.dump(found_ingredient)
+    response= {
+      'data': result,
+      'status_code' : 200
+    }
+    return jsonify(response)
+
+    # future reference: use intersect or intersect_all or union in queries to do multiple ingredient searches. use 'values' to measure which has the most recipes? or return all possible and let the user choose?
 
   @app.route('/recipes', methods=['GET'])
   def get_all_recipes():
