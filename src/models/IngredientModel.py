@@ -1,3 +1,4 @@
+from flask import Flask, jsonify
 from marshmallow import fields, Schema
 import datetime
 from . import db
@@ -24,16 +25,25 @@ class Ingredient(db.Model):
     self.created_at = datetime.datetime.utcnow()
     self.modified_at = datetime.datetime.utcnow()
 
-  @staticmethod
-  def get_all_ingredientss():
-    return IngredientModel.query.all()
+  # @staticmethod
+  # def get_all_ingredients():
+  #   return jsonify(Ingredient.query.all())
 
-  @staticmethod
-  def get_one_ingredient(id):
-    return IngredientModel.query.get(id)
+  # @staticmethod
+  # def get_one_ingredient(id):
+  #   return Ingredient.query.get(id)
+
+  def __repr(self):
+    return '<id {}>'.format(self.id)
 
   def __repr(self):
     return '<id {}>'.format(self.id)
 
-  def __repr(self):
-    return '<id {}>'.format(self.id)
+class IngredientSchema(Schema):
+  class Meta:
+    model = Ingredient
+
+  id = fields.Int(dump_only=True)
+  name = fields.String(required=True)
+  created_at = fields.DateTime(dump_only=True)
+  modified_at = fields.DateTime(dump_only=True)

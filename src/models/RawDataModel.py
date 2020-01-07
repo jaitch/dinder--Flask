@@ -40,17 +40,21 @@ class RawDataModel(db.Model):
   # def get_one_recipe(id):
   #   return RawDataModel.query.get(id)
 
+  # or query.filterby?
+
   def __repr(self):
     return '<id {}>'.format(self.id)
 
-# class RawDataSchema(Schema):
+class RawDataSchema(Schema):
+  class Meta:
+    model = RawDataModel
 #   """
 #   Raw Data Schema
 #   """
-#   id = fields.Int(dump_only=True)
-#   allData = fields.JSONB(required=True)
-#   created_at = fields.DateTime(dump_only=True)
-#   modified_at = fields.DateTime(dump_only=True)
+  id = fields.Int(dump_only=True)
+  allData = fields.Dict(required=True)
+  created_at = fields.DateTime(dump_only=True)
+  modified_at = fields.DateTime(dump_only=True)
 
 # r = RawDataModel()
 # i = Ingredient()
