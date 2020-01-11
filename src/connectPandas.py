@@ -20,7 +20,7 @@ df = pd.read_sql_query(sql, con=engine, coerce_float=False, params=None, parse_d
 
 # based on source: https://blogs.sap.com/2017/09/06/how-to-measure-report-similarity-using-python/
 
-# puts it into a boolean matrix of '0' and '1'
+# puts it into a boolean matrix of '0' and '1'; get_dummies function generates columns for each recipe_id
 dummies = pd.get_dummies(df['recipe_id'])
 df = pd.concat([df, dummies], axis=1)
 # group recipes by ingredients
