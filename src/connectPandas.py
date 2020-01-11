@@ -18,14 +18,20 @@ sql = 'select i.ingredient_id, ri.recipe_id from (select ri.ingredient_id from i
 
 df = pd.read_sql_query(sql, con=engine, coerce_float=False, params=None, parse_dates=None)
 
+# based on source: https://blogs.sap.com/2017/09/06/how-to-measure-report-similarity-using-python/
+
+# puts it into a boolean matrix of '0' and '1'
 dummies = pd.get_dummies(df['recipe_id'])
 df = pd.concat([df, dummies], axis=1)
+# group recipes by ingredients
 grp = df.groupby('ingredient_id').sum()
+# calculate jaccard distance
 dist = pdist(grp, metric="jaccard")
+# format into matrix
 s_dist = squareform(dist)
 np.fill_diagonal(s_dist, np.nan)
+# change difference into similarity
 sim = np.subtract(1, s_dist)
 sim_df = pd.DataFrame(sim, columns=grp.index, index=grp.index)
-
 
 print(sim_df)
