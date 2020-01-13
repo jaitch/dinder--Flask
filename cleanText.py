@@ -4,7 +4,7 @@ from textblob import TextBlob
 from textblob import Word
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-import re
+import re # for regex
 
 engine = create_engine('postgresql://janicehuang@localhost/dinder')
 Session = sessionmaker(bind=engine)

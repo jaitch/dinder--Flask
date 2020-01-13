@@ -12,10 +12,10 @@ class Similarity(db.Model):
   target = db.Column(db.String, nullable=False)
   strength = db.Column(db.Float, nullable=False)
 
-  def __init__(self, data):
-    self.source = data.get('source')
-    self.source = data.get('target')
-    self.source = data.get('strength')
+  def __init__(self, source, target, strength):
+    self.source = source
+    self.target = target
+    self.strength = strength
 
 class SimilaritySchema(Schema):
   class Meta:
