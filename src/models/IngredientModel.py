@@ -25,13 +25,6 @@ class Ingredient(db.Model):
     self.created_at = datetime.datetime.utcnow()
     self.modified_at = datetime.datetime.utcnow()
 
-  # @staticmethod
-  # def get_all_ingredients():
-  #   return jsonify(Ingredient.query.all())
-
-  # @staticmethod
-  # def get_one_ingredient(id):
-  #   return Ingredient.query.get(id)
 
   def __repr(self):
     return '<id {}>'.format(self.id)
