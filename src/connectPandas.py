@@ -14,7 +14,7 @@ engine = create_engine('postgres+psycopg2://janicehuang@localhost/dinder')
 #     jaccard = len(intersection)/float(len(union))
 #     return jaccard
 
-sql = 'select i.ingredient_id, ri.recipe_id from (select ri.ingredient_id from ingredients i, recipe_ingredients ri where i.id=ri.ingredient_id group by ri.ingredient_id having count(ri.ingredient_id)>1000) as i, recipe_ingredients as ri where i.ingredient_id=ri.ingredient_id limit 40000'
+sql = 'select i.ingredient_id, ri.recipe_id from (select ri.ingredient_id from ingredients i, recipe_ingredients ri where i.id=ri.ingredient_id group by ri.ingredient_id having count(ri.ingredient_id)>5000) as i, recipe_ingredients as ri where i.ingredient_id=ri.ingredient_id limit 1000'
 
 df = pd.read_sql_query(sql, con=engine, coerce_float=False, params=None, parse_dates=None)
 
@@ -34,4 +34,6 @@ np.fill_diagonal(s_dist, np.nan)
 sim = np.subtract(1, s_dist)
 sim_df = pd.DataFrame(sim, columns=grp.index, index=grp.index)
 
-print(sim_df)
+for source, row in sim_df.iterrows():
+  for target, strength in row.items():
+    print(source, target, strength)
