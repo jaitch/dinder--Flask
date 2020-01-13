@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, abort, send_from_directory
 from flask_cors import CORS, cross_origin
+from sqlalchemy import text
 from src.models.RawDataModel import RawDataModel, RawDataSchema
 from src.models.IngredientModel import Ingredient, IngredientSchema
 from .config import app_config
@@ -26,13 +27,16 @@ def create_app(env_name):
   def get_ingredient_by_name(sought_ingredient):
     ingredient_schema = IngredientSchema(many=True)
     found_ingredient = Ingredient.query.filter_by(name=sought_ingredient)
-    print(found_ingredient)
     if found_ingredient is None:
       response = {
         'message': 'Sorry. Ingredient does not exist.'
       }
       return jsonify(response), 404
     result = ingredient_schema.dump(found_ingredient)
+    print(found_ingredient)
+    sql = text(f'select i.id, i.name, t.id, t.name, s.strength from ingredients i, similarities s, ingredients t  where t.id=s.target and i.id=s.source and i.name=\'{result[0]["name"]}\' order by s.strength desc')
+    sims = db.engine.execute(sql)
+    print(sims)
     response= {
       'data': result,
       'status_code' : 200

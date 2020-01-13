@@ -8,8 +8,8 @@ class Similarity(db.Model):
   __tablename__ = 'similarities'
 
   id = db.Column(db.Integer, primary_key=True)
-  source = db.Column(db.String, nullable=False)
-  target = db.Column(db.String, nullable=False)
+  source = db.Column(db.Integer, nullable=False)
+  target = db.Column(db.Integer, nullable=False)
   strength = db.Column(db.Float, nullable=False)
 
   def __init__(self, source, target, strength):
@@ -22,6 +22,6 @@ class SimilaritySchema(Schema):
     model = Similarity
 
   id = fields.Int(dump_only=True)
-  source = fields.String(required=True)
-  target = fields.String(required=True)
-  strength = fields.String(required=True)
+  source = fields.Int(required=True)
+  target = fields.Int(required=True)
+  strength = fields.Float(required=True)
