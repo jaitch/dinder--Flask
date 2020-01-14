@@ -5,6 +5,8 @@ from src.models.RawDataModel import RawDataModel, RawDataSchema
 from src.models.IngredientModel import Ingredient, IngredientSchema
 from .config import app_config
 from .models import db
+import json
+
 
 def create_app(env_name):
   app = Flask(__name__, static_url_path='')
@@ -33,15 +35,25 @@ def create_app(env_name):
       }
       return jsonify(response), 404
     result = ingredient_schema.dump(found_ingredient)
-    print(found_ingredient)
-    sql = text(f'select i.id, i.name, t.id, t.name, s.strength from ingredients i, similarities s, ingredients t  where t.id=s.target and i.id=s.source and i.name=\'{result[0]["name"]}\' order by s.strength desc')
+    result_call = result[0]["name"]
+    sql = text(f"select i.id, i.name, t.id, t.name, s.strength from ingredients i, similarities s, ingredients t  where t.id=s.target and i.id=s.source and i.name='{result_call}' order by s.strength desc")
     sims = db.engine.execute(sql)
     print(sims)
-    response= {
-      'data': result,
-      'status_code' : 200
-    }
-    return jsonify(response)
+    # response= {
+    #   'data': sims,
+    #   'status_code' : 200
+    # }
+    # d, a = {}, []
+    # for rowproxy in sims:
+    # # rowproxy.items() returns an array like [(key0, value0), (key1, value1)]
+    #   for column, value in rowproxy.items():
+    #     # build up the dictionary
+    #     d = {**d, **{column: value}}
+    #   a.append(d)
+    # sim_results = json.dumps[{column: value for column, value in rowproxy.items()} for rowproxy in sims]
+    sim_results = json.dumps({'response': [dict(row) for row in sims]})
+    print('this is the json', sim_results)
+    return sim_results
 
     # future reference: use intersect or intersect_all or union in queries to do multiple ingredient searches. use 'values' to measure which has the most recipes? or return all possible and let the user choose?
 
