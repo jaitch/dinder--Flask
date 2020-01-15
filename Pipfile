@@ -15,6 +15,7 @@ flask-script = "*"
 marshmallow = "*"
 flask-bcrypt = "*"
 pyjwt = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.6"
