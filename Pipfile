@@ -16,6 +16,7 @@ marshmallow = "*"
 flask-bcrypt = "*"
 pyjwt = "*"
 gunicorn = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.6"
