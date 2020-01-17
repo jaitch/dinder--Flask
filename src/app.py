@@ -16,7 +16,7 @@ def create_app(env_name):
 
   @app.route('/', methods=['GET'])
   def index():
-    return 'Congratulations! Your first endpoint is actually working!'
+    return 'This index endpoint is working!'
 
   @app.route('/ingredients')
   @cross_origin(supports_credentials=True)
@@ -39,18 +39,26 @@ def create_app(env_name):
     sql = text(f"select i.id as source_id, i.name as source_name, t.id as target_id, t.name as target, s.strength from ingredients i, similarities s, ingredients t  where t.id=s.target and i.id=s.source and i.name='{result_call}' and s.strength>0.01 and i.id!=t.id order by s.strength desc")
     sims = db.engine.execute(sql)
     print(sims)
-
     sim_results = jsonify({'ing_data': [dict(row) for row in sims]})
-    print('this is the json', sim_results)
+    print('this is the ing json', sim_results)
     return sim_results
 
-  @app.route('/recipes')
+  @app.route('/recipes/')
   @cross_origin(supports_credentials=True)
   def get_matching_recipes():
-    print(request.args)
-    return request.args
     schema = RawDataSchema(many=True)
-    return jsonify(schema.dump(request.args))
+    array = request.args.getlist("ing")
+    num = len(array)
+    string = ', '.join(str(e) for e in array)
+    sql = text(f"select r.* from (select max(recipe_id), count(recipe_id) from ingredients i, recipe_ingredients ri  where i.id=ri.ingredient_id and i.id in ({string} ) group by recipe_id having count(recipe_id)={num}) as foo, raw_data r where foo.max=r.id;")
+    recipes = db.engine.execute(sql)
+    if recipes is None:
+      return []
+    print(recipes)
+    recipes_to_send = jsonify({'rec_data': [dict(row) for row in recipes]})
+    print('this is the rec json', recipes_to_send)
+    return recipes_to_send
+    # return jsonify(schema.dump())
 
   @app.route('/recipe/<id>')
   @cross_origin(supports_credentials=True)
