@@ -18,13 +18,13 @@ def create_app(env_name):
   def index():
     return 'Congratulations! Your first endpoint is actually working!'
 
-  @app.route('/ingredients', methods=['GET'])
+  @app.route('/ingredients')
   @cross_origin(supports_credentials=True)
   def get_all_ingredients():
     ingredients_schema = IngredientSchema(many=True)
     return jsonify(ingredients_schema.dump(Ingredient.query.limit(10).all()))
 
-  @app.route('/ingredient/<sought_ingredient>', methods=['GET'])
+  @app.route('/ingredient/<sought_ingredient>')
   @cross_origin(supports_credentials=True)
   def get_ingredient_by_name(sought_ingredient):
     ingredient_schema = IngredientSchema(many=True)
@@ -44,13 +44,15 @@ def create_app(env_name):
     print('this is the json', sim_results)
     return sim_results
 
-  @app.route('/recipes', methods=['GET'])
+  @app.route('/recipes')
   @cross_origin(supports_credentials=True)
-  def get_all_recipes():
+  def get_matching_recipes():
+    print(request.args)
+    return request.args
     schema = RawDataSchema(many=True)
-    return jsonify(schema.dump(RawDataModel.query.limit(10).all()))
+    return jsonify(schema.dump(request.args))
 
-  @app.route('/recipe/<id>', methods=['GET'])
+  @app.route('/recipe/<id>')
   @cross_origin(supports_credentials=True)
   def get_recipe_by_id(id):
     schema = RawDataSchema(many=False)
