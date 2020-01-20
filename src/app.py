@@ -24,9 +24,9 @@ def create_app(env_name):
     ingredients_schema = IngredientSchema(many=True)
     return jsonify(ingredients_schema.dump(Ingredient.query.limit(10).all()))
 
-  @app.route('/ingredient/<sought_ingredient>')
+  @app.route('/ingredient/<sought_ingredient>/<y>')
   @cross_origin(supports_credentials=True)
-  def get_ingredient_by_name(sought_ingredient):
+  def get_ingredient_by_name(sought_ingredient, y):
     ingredient_schema = IngredientSchema(many=True)
     found_ingredient = Ingredient.query.filter_by(name=sought_ingredient)
     if found_ingredient is None:
@@ -36,7 +36,7 @@ def create_app(env_name):
       return jsonify(response), 404
     result = ingredient_schema.dump(found_ingredient)
     result_call = result[0]["name"]
-    sql = text(f"select i.id as source_id, i.name as source_name, t.id as target_id, t.name as target, s.strength from ingredients i, similarities s, ingredients t  where t.id=s.target and i.id=s.source and i.name='{result_call}' and s.strength>0.01 and i.id!=t.id order by s.strength desc")
+    sql = text(f"select i.id as source_id, i.name as source_name, t.id as target_id, t.name as target, s.strength from ingredients i, similarities s, ingredients t  where t.id=s.target and i.id=s.source and i.name='{result_call}' and s.strength>{y} and i.id!=t.id order by s.strength desc")
     sims = db.engine.execute(sql)
     print(sims)
     sim_results = jsonify({'ing_data': [dict(row) for row in sims]})
