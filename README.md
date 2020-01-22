@@ -1,6 +1,11 @@
 # dinder
 Ingredient Matchmaker (Capstone Project)
 
+Pipenv install: Flask, CORS, text, json, pandas, squareform, pdist, numpy, psycopg2, sqlachemy, sqlalcehmy.orm, sqlachemy.types, textblob, re
+Deployed on Heroku: https://dinder-flask.herokuapp.com/
+Database plan: Hobby-basic postgresql-curly-46952
+
+
 Sources:
 https://www.codementor.io/@olawalealadeusi896/restful-api-with-python-flask-framework-and-postgres-db-part-1-kbrwbygx5 (Flask skeleton)
 https://www.analyticsvidhya.com/blog/2017/01/ultimate-guide-to-understand-implement-natural-language-processing-codes-in-python/ (text cleaning)
