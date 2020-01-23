@@ -1,7 +1,7 @@
 # dinder
 Ingredient Matchmaker (Capstone Project)
 
-Pipenv install: Flask, CORS, text, json, pandas, squareform, pdist, numpy, psycopg2, sqlachemy, sqlalcehmy.orm, sqlachemy.types, textblob, re
+Pipenv install: Flask, CORS, text, json, pandas, squareform, pdist, numpy, psycopg2, sqlachemy, sqlalcehmy.orm, sqlachemy.types, textblob, re  
 Deployed on Heroku: https://dinder-flask.herokuapp.com/
 Database plan: Hobby-basic postgresql-curly-46952
 
