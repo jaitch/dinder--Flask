@@ -3,7 +3,7 @@ from flask_cors import CORS, cross_origin
 from sqlalchemy import text
 from src.models.RawDataModel import RawDataModel, RawDataSchema
 from src.models.IngredientModel import Ingredient, IngredientSchema
-from .config import app_config
+from config import app_config
 from .models import db
 import json
 
