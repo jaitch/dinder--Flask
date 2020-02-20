@@ -4,7 +4,7 @@ from flask.cli import FlaskGroup
 from flask_migrate import Migrate, MigrateCommand
 from src.app import create_app, db
 
-env_name = os.getenv('FLASK_ENV')
+env_name = 'development'#os.getenv('FLASK_ENV')
 app = create_app(env_name)
 cli = FlaskGroup(app)
 
@@ -19,6 +19,7 @@ cli = FlaskGroup(app)
 
 @cli.command("create_db")
 def create_db():
+  db.init_app(app)
   db.drop_all()
   db.create_all()
   db.session.commit()

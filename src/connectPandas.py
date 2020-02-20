@@ -8,7 +8,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.types import Integer, String
 from models.SimilarityModel import Similarity
 
-engine = create_engine('postgres+psycopg2://janicehuang@localhost/dinder')
+engine = create_engine('postgresql://user:password@postgres:5432/pgdb')
 Session = sessionmaker(bind=engine)
 session = Session()
 

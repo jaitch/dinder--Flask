@@ -3,15 +3,18 @@ from flask_cors import CORS, cross_origin
 from sqlalchemy import text
 from src.models.RawDataModel import RawDataModel, RawDataSchema
 from src.models.IngredientModel import Ingredient, IngredientSchema
-from config import app_config
-from .models import db
+from src.config import app_config
+from src.models import db
 import json
 
 
 def create_app(env_name):
   app = Flask(__name__, static_url_path='')
   CORS(app, support_credentials=True)
-  app.config.from_object(app_config[env_name])
+  #app.config.from_object(app_config[env_name])
+  app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://user:password@postgres:5432/pgdb"
+  app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+  app.config["DEBUG"] = True
   db.init_app(app)
 
   @app.route('/', methods=['GET'])
