@@ -162,9 +162,9 @@ class NetworkGraph extends Component {
 
     function circleSize(d){
       if (d.strength === 1) {
-        return 45
+        return 30
       }
-      return 400 * d.strength
+      return 40 * d.strength
     }
 
     function tickActions() {
