@@ -6,7 +6,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import re # for regex
 
-engine = create_engine('postgresql://janicehuang@localhost/dinder')
+engine = create_engine('postgresql://user:password@postgres:5432/pgdb')
 Session = sessionmaker(bind=engine)
 session = Session()
 
