@@ -6,10 +6,6 @@ services:
     ports:
       - "5432:5432"
     container_name: postgres
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: pgdb
     volumes: 
       - postgres_data:/var/lib/postgresql/data
   web-app:
