@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+.App {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.App-body {
+  height: auto;
+  min-height: 100%;
+}
+
+.App-header {
+  text-align: center;
+  background-image: linear-gradient(262deg, #ff7854, #fd267d);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(50px + 2vmin);
+  font-weight: bolder;
+  color: white;
+  height: 125px;
+  padding: 70px;
+}
+
+.App-logo {
+  height: 150px;
+  position: absolute;
+  top: 20px;
+  left: 65px;
+}
+
+.App-brand {
+  position: absolute;
+  top: 80px;
+  left: 45px;
+  font-weight: 900;
+}
+
+.App-title {
+  font-size: calc(130px + 2vmin);
+  position: absolute;
+  left: 225px;
+  top: -85px;
+}
+
+.App-subtitle {
+  font-size: 1em;
+  position: absolute;
+  right: 75px;
+  top: 160px;
+  color: black
+}
+
+

@@ -1,0 +1,53 @@
+.recipe-search-box {
+  position: absolute;
+  top: 300px;
+  right: 50px;
+}
+
+.instructions {
+}
+
+.list {
+  position: absolute;
+  right: 150px;
+  /* max-height: 30px; */
+}
+
+.recipe-submit-btn {
+  flex: 0.5;
+  margin: 1rem;
+  width: 150px;
+  height: 45px;
+  background-image: linear-gradient(262deg, #ff7854, #fd267d);
+  transition: 0.25s;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 1em;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+  position: absolute;
+  right: 330px;
+}
+
+.recipe-clear-btn {
+  flex: 0.5;
+  margin: 1rem;
+  width: 150px;
+  height: 45px;
+  background-image: linear-gradient(262deg, #ff7854, #fd267d);
+  transition: 0.25s;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 1em;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+  position: absolute;
+  right: 330px;
+  top: 150px;
+}

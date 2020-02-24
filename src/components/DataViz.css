@@ -1,0 +1,70 @@
+.submit-btn {
+  flex: 0.5;
+  margin: 1rem;
+  width: 150px;
+  height: 45px;
+  background-image: linear-gradient(262deg, #ff7854, #fd267d);
+  transition: 0.25s;
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 1em;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+}
+
+/* .submit-btn:hover {
+  background-color:#fd267d;
+} */
+
+.text {
+  font-size: 2em;
+}
+
+.form{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  left: 20px;
+}
+
+input {
+  width: 90%;
+  height: 100%;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  background-color: white;
+  font-size: 1em;
+}
+
+input:focus {
+  background-color: white;
+}
+
+.search-box {
+  height: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.Toastify__toast-container {
+  animation-duration: 5000ms;
+  animation-play-state: running;
+  opacity: 1;
+  position: absolute;
+  top: 275px;
+  left: 400px;
+  font-size: 2em;
+  color: rgb(65, 182, 174)
+}
+
+.slider {
+  font-size: 1em;
+}
+
+p {
+  margin-top: 0;
+}
