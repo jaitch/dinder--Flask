@@ -1,0 +1,31 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    ports:
+      - "5432:5432"
+    container_name: postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: pgdb
+    volumes: 
+      - postgres_data:/var/lib/postgresql/data
+  web-app:
+    build: ./react
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./react/:/usr/src/app/
+  api:
+    build: ./flask
+    env_file:
+      - ./flask/.env
+    depends_on:
+      - postgres
+    ports:
+      - "5000:5000"
+
+volumes:
+  postgres_data:
